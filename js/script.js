@@ -37,4 +37,21 @@ addModelToAppData( 4, 'VW', 'x2', 2020, 45000);
 addModelToAppData( 5, 'VW', 'cc', 2005, 95000);
 
 
-console.log('appData: ', appData); 
+// console.log('appData: ', appData); 
+
+
+let appDataJSON = JSON.stringify(appData);
+console.log('appDataJSON: ', appDataJSON);
+
+/** запись обкта в хранилище localstorage */
+localStorage.setItem('model', appDataJSON);
+
+
+/** читаем из localstorage */
+let readMyJSON = localStorage.getItem('model');
+console.log('readMyJSON: ', readMyJSON);
+
+/** преобразуем в обычный обкт */
+let myAppData = JSON.parse(readMyJSON);
+console.log('myAppData: ', myAppData);
+
