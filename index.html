@@ -16,7 +16,7 @@
 
 <div class="container">
     <div class="row">
-      <div class="form-lable text-success">Добавить автомобиль в базу</div>
+      <div class="form-lable text-success">Добавить автомобиль</div>
       <div class="col">
         <!-- <div class="form-lable">Marka brand</div> -->
         <input type="text" class="form-control" placeholder="Марка">
@@ -31,7 +31,7 @@
         <input type="nuber" class="form-control" placeholder="Пробег">
       </div>
       <div class="col">
-        <button type="button" class="btn btn-outline-success">Добавить автомобиль</button>
+        <button type="button" class="btn btn-outline-success" id="btn-add-car">Добавить</button>
       </div>
     </div>
   </div><!-- /.container -->
@@ -55,7 +55,7 @@
         <input type="nuber" class="form-control" placeholder="Пробег">
       </div>
       <div class="col">
-        <button type="button" class="btn btn-outline-info">Фильтровать</button>
+        <button type="button" class="btn btn-outline-info" id="btn-filter">Фильтровать</button>
       </div>
     </div>
   </div><!-- /.container -->
@@ -64,64 +64,71 @@
   
 <!-- давайте верстать простую быструю таблицу bs 5 -->
 <div class="container">
+  <button type="button" class="btn btn-outline-info" id="btn-render">Перестроить</button>
 <!-- пример таблиц на bs https://getbootstrap.com/docs/5.0/content/tables -->
-    <table class="table table-striped table-hover">
-        <caption class="caption-top">Список автомобилей в таблце</caption>
-        <thead>
-          <tr>
-            <th>№</th>
-            <th>Марка brand</th>
-            <th>Модель model</th>
-            <th>Год выпуска year</th>
-            <th>Пробег mileage</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th>1</th>
-            <td>Mazda</td>
-            <td>x10</td>
-            <td>2002</td>
-            <td>50000</td>
-          </tr>
-          <tr>
-              <th>2</th>
-              <td>Opel</td>
-              <td>пасат</td>
-              <td>2021</td>
-              <td></td>
-          </tr>
-          <tr>
-              <th>3</th>
-              <td></td>
-              <td>пасат</td>
-              <td>2010</td>
-              <td>1000</td>
-          </tr>
-          <tr>
-              <th>4</th>
-              <td>Opel</td>
-              <td>cc</td>
-              <td>2021</td>
-              <td>10000</td>
-          </tr>
-          <tr>
-              <th>5</th>
-              <td>VW</td>
-              <td>cc</td>
-              <td>2021</td>
-              <td>10500</td>
-          </tr>
 
-        </tbody>
-        <tfoot>
-            <td>Итого</td>
-            <td></td>
-            <td></td>
-            <td>2002..2021</td>
-            <td>71500</td>
-        </tfoot>
-      </table>
+  <div class="table-container"></div><!-- /.table-container -->
+
+<!--
+<table class="table table-striped table-hover">
+  <caption class="caption-top">Список автомобилей в таблце</caption>
+  <thead>
+    <tr>
+      <th>№</th>
+      <th>Марка brand</th>
+      <th>Модель model</th>
+      <th>Год выпуска year</th>
+      <th>Пробег mileage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>Mazda</td>
+      <td>x10</td>
+      <td>2002</td>
+      <td>50000</td>
+    </tr>
+    <tr>
+        <th>2</th>
+        <td>Opel</td>
+        <td>пасат</td>
+        <td>2021</td>
+        <td></td>
+    </tr>
+    <tr>
+        <th>3</th>
+        <td></td>
+        <td>пасат</td>
+        <td>2010</td>
+        <td>1000</td>
+    </tr>
+    <tr>
+        <th>4</th>
+        <td>Opel</td>
+        <td>cc</td>
+        <td>2021</td>
+        <td>10000</td>
+    </tr>
+    <tr>
+        <th>5</th>
+        <td>VW</td>
+        <td>cc</td>
+        <td>2021</td>
+        <td>10500</td>
+    </tr>
+
+  </tbody>
+  <tfoot>
+      <td>Итого</td>
+      <td></td>
+      <td></td>
+      <td>2002..2021</td>
+      <td>71500</td>
+  </tfoot>
+</table>
+    -->
+
 </div><!-- container table -->
 
 <hr>
