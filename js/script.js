@@ -116,31 +116,76 @@ const renderTableHTML = () => {
 
 
 
+const getTableRow = ()  => {
+
+  let row = document.createElement('tr');
+  let td = document.createElement('td');
+
+  let car = appData[1];
+  let tds = [];
+  let j = 0;
+  for (let key in car) {
+    j++;
+    let item = car[key];
+    console.log(key, item);
+    let tdata = td.cloneNode();
+    switch (j)  {
+      case 0:
+        tdata.textContent = '';
+        break;
+      case 1:
+        tdata.textContent = car.brand;
+        break;
+      case 2:
+        tdata.textContent = car.model;
+        break;
+      case 3:
+        tdata.textContent = car.year;
+        break;
+      case 4:
+        tdata.textContent = car.mileage;
+        break;
+    }
+    tds.push(tdata);
+    row.append(tdata);
+  }
+
+  return row;
+};
+
 
 
 //функция прорисовки таблицы через append
 const renderTable = () => {
-
+  
   if (tableContainer) {
-    console.log('tableContainer существует и добавим таблицу сюда');
+    // console.log('tableContainer существует и добавим таблицу сюда');
     
+console.log('What we get : ', getTableRow());
+
+
     //элементы оригиналы
     const tr = document.createElement('tr');
     const th = document.createElement('th');
     const td = document.createElement('td');
-
-    //подготавливаем заголовок
-    const tHead = document.createElement('thead');
     
-    //ряды
+    const tHead = document.createElement('thead');
+    const tBody = document.createElement('tbody');
+    const tFoot = document.createElement('tfoot');
+
+    const table = document.createElement('table');
+
+    tBody.append(getTableRow());
+    table.append(tBody);
+    tableContainer.append(table);
+
     const trows = [];
-    //элемнты ячеек
     const ths = [];
     const tds = [];
 
 
     //TABLE HEAD thead>tr>th
-    trows[0] = tr.cloneNode();
+    // trows[0] = tr.cloneNode();
     
     // ths[1] = th.cloneNode();
     // ths[2] = th.cloneNode();
@@ -148,89 +193,74 @@ const renderTable = () => {
     // ths[4] = th.cloneNode();
     // ths[5] = th.cloneNode();
     
-    //клонируем
-    for (let i=0; i<5; i++) {
-      ths[i] = th.cloneNode();
-    }
-    
-    ths[0].textContent = 'Номер';
-    ths[1].textContent = 'Марка';
-    ths[2].textContent = 'Модель';
-    ths[3].textContent = 'Год выпуска';
-    ths[4].textContent = 'Пробег';
-    
     // trows[1].append(ths[1]);
     // trows[1].append(ths[2]);
     // trows[1].append(ths[3]);
     // trows[1].append(ths[4]);
     // trows[1].append(ths[5]);
+
+
+
+    //клонируем
+    // for (let i=0; i<5; i++) {
+    //   ths[i] = th.cloneNode();
+    // }
     
-    for (let i=0; i<5; i++) {
-      trows[0].append(ths[i]);
-    }
-
-    tHead.append(trows[0]);
-
-
-
-
+    // ths[0].textContent = 'Номер';
+    // ths[1].textContent = 'Марка';
+    // ths[2].textContent = 'Модель';
+    // ths[3].textContent = 'Год выпуска';
+    // ths[4].textContent = 'Пробег';
+    
+    
+    // for (let i=0; i<5; i++) {
+    //   trows[0].append(ths[i]);
+    // }
+    // tHead.append(trows[0]);
 
 
 
     //TABLE BODY tbody>tr>td
-    const tBody = document.createElement('tbody');
 
-    trows[1] = tr.cloneNode();
-    //клонируем заготовку
-    for (let i=0; i<5; i++) {
-      tds[i] = td.cloneNode();
-      // console.log(tds[i]);
-    }
-    
     // let carIndex = 0;
-    //выбираем значения из обкт 
-    for (let carIndex=1; carIndex <= 1; carIndex++) {
-
-      let car = appData[carIndex];
+    //   for (let car of appData) {
+        
+    //     trows[++carIndex] = tr.cloneNode();
+    //     tds[carIndex] = td.cloneNode();
       
-      let brand = car.brand;
-      let model = car.model;
-      let year = car.year;
-      let mileage = car.mileage;
+    //   let brand = car.brand;
+    //   let model = car.model;
+    //   let year = car.year;
+    //   let mileage = car.mileage;
       
-      tds[0].textContent = carIndex;//table index
-      tds[1].textContent = brand;
-      tds[2].textContent = model;
-      tds[3].textContent = year;
-      tds[4].textContent = mileage;
-      console.log('carIndex: ', carIndex);
-      // console.dir('tds: ', tds);
+    //   tds[0].textContent = carIndex;//table index
+    //   tds[1].textContent = brand;
+    //   tds[2].textContent = model;
+    //   tds[3].textContent = year;
+    //   tds[4].textContent = mileage;
+    //   console.log('carIndex: ', carIndex);
       
-      for (let i=0; i<5; i++) {
-        trows[carIndex].append(tds[i]);
-      }
+    //   //добавляем td
+    //   for (let i=0; i<5; i++) {
+    //     trows[carIndex].append(tds[i]);
+    //   }
       
-      tBody.append(trows[carIndex]);
-    } //for
+    //   tBody.append(trows[carIndex]);
+    // }
 
 
 
 
 
-
-    const tFoot = document.createElement('tfoot');
     
 
-    const tableContent = document.createElement('table');
-    tableContent.append(tHead);
-    tableContent.append(tBody);
-    tableContent.append(tFoot);
 
 
-    //записываем эти в структуру html
-    // tableContainer.innerHTML = tableStructure;
-    tableContainer.append(tableContent);
-    console.log('tableContainer: ', tableContainer);
+
+
+
+
+
 
   } else {
     console.log('tableContainer null не найден');
@@ -243,10 +273,9 @@ const renderTable = () => {
 
 //проверяем и загружаем данные из localStorage
 readFromLocalStorage();
+console.log('appData: ', appData);
 //перестраиваем таблицу после загрузки
 renderTable();
-
-
 
 
 btnAddCar.addEventListener('click', (e) => {
@@ -267,7 +296,7 @@ btnAddCar.addEventListener('click', (e) => {
   console.log('year: ', year);
   const mileage = inputAddMileage.value;
   console.log('mileage: ', mileage);
-  
+
 
   if ( brand || model || year ) {
     
