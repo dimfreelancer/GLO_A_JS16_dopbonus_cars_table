@@ -112,44 +112,119 @@ const renderTableHTML = () => {
   } 
 };
 
+
+
+
+
+
+
 //функция прорисовки таблицы через append
 const renderTable = () => {
 
   if (tableContainer) {
     console.log('tableContainer существует и добавим таблицу сюда');
-
-    const th1 = document.createElement('th');
-    th1.textContent = 'Номер';
-    const trh = document.createElement('tr');
-    trh.append(th1);
-
-    const th2 = th1.cloneNode();
-    th2.textContent = 'Марка';
-    trh.append(th2);
-
-    const th3 = th1.cloneNode();
-    th3.textContent = 'Модель';
-    trh.append(th3);
-
-    const th4 = th1.cloneNode();
-    th4.textContent = 'Год выпуска';
-    trh.append(th4);
     
-    const th5 = th1.cloneNode();
-    th5.textContent = 'Пробег';
-    trh.append(th5);
+    //элементы оригиналы
+    const tr = document.createElement('tr');
+    const th = document.createElement('th');
+    const td = document.createElement('td');
 
-    const tableHead = document.createElement('thead');
-    tableHead.append(trh);
+    //подготавливаем заголовок
+    const tHead = document.createElement('thead');
+    
+    //ряды
+    const trows = [];
+    //элемнты ячеек
+    const ths = [];
+    const tds = [];
 
-    const tableBody = document.createElement('tbody');
-    const tableFoot = document.createElement('tfoot');
+
+    //TABLE HEAD thead>tr>th
+    trows[0] = tr.cloneNode();
+    
+    // ths[1] = th.cloneNode();
+    // ths[2] = th.cloneNode();
+    // ths[3] = th.cloneNode();
+    // ths[4] = th.cloneNode();
+    // ths[5] = th.cloneNode();
+    
+    //клонируем
+    for (let i=0; i<5; i++) {
+      ths[i] = th.cloneNode();
+    }
+    
+    ths[0].textContent = 'Номер';
+    ths[1].textContent = 'Марка';
+    ths[2].textContent = 'Модель';
+    ths[3].textContent = 'Год выпуска';
+    ths[4].textContent = 'Пробег';
+    
+    // trows[1].append(ths[1]);
+    // trows[1].append(ths[2]);
+    // trows[1].append(ths[3]);
+    // trows[1].append(ths[4]);
+    // trows[1].append(ths[5]);
+    
+    for (let i=0; i<5; i++) {
+      trows[0].append(ths[i]);
+    }
+
+    tHead.append(trows[0]);
+
+
+
+
+
+
+
+    //TABLE BODY tbody>tr>td
+    const tBody = document.createElement('tbody');
+
+    trows[1] = tr.cloneNode();
+    //клонируем заготовку
+    for (let i=0; i<5; i++) {
+      tds[i] = td.cloneNode();
+      // console.log(tds[i]);
+    }
+    
+    // let carIndex = 0;
+    //выбираем значения из обкт 
+    for (let carIndex=1; carIndex <= 1; carIndex++) {
+
+      let car = appData[carIndex];
+      
+      let brand = car.brand;
+      let model = car.model;
+      let year = car.year;
+      let mileage = car.mileage;
+      
+      tds[0].textContent = carIndex;//table index
+      tds[1].textContent = brand;
+      tds[2].textContent = model;
+      tds[3].textContent = year;
+      tds[4].textContent = mileage;
+      console.log('carIndex: ', carIndex);
+      // console.dir('tds: ', tds);
+      
+      for (let i=0; i<5; i++) {
+        trows[carIndex].append(tds[i]);
+      }
+      
+      tBody.append(trows[carIndex]);
+    } //for
+
+
+
+
+
+
+    const tFoot = document.createElement('tfoot');
     
 
     const tableContent = document.createElement('table');
-    tableContent.append(tableHead);
-    tableContent.append(tableBody);
-    tableContent.append(tableFoot);
+    tableContent.append(tHead);
+    tableContent.append(tBody);
+    tableContent.append(tFoot);
 
 
     //записываем эти в структуру html
