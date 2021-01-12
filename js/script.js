@@ -9,9 +9,9 @@ let appData = [];
 const btnAddCar = document.getElementById('btn-add-car');
 const btnFilter = document.getElementById('btn-filter');
 const btnRender = document.getElementById('btn-render');
-console.log('btnAddCar: ', btnAddCar);
-console.log('btnFilter: ', btnFilter);
-console.log('btnRender: ', btnRender);
+// console.log('btnAddCar: ', btnAddCar);
+// console.log('btnFilter: ', btnFilter);
+// console.log('btnRender: ', btnRender);
 
 //находим нужный контейнер для выгрузки списка
 const tableContainer = document.querySelector('.table-container');
@@ -19,8 +19,9 @@ const tableContainer = document.querySelector('.table-container');
 //функция добавки одной записи в массиив обктов
 const addModelToAppData = (brand, model, year, mileage) => {
 
+  //проверка есть что-то в хранилище
   if (localStorage.getItem(KEY)) {
-    //проверка есть что-то в хранилище
+    //читаем из хранилища по ключу
     appData = JSON.parse(localStorage.getItem(KEY));
   } else {
     //если в хранилище пусто сохраняем пустой массив
@@ -38,7 +39,7 @@ const addModelToAppData = (brand, model, year, mileage) => {
 const readFromLocalStorage = () => {
 
   if (localStorage.getItem('model')) {
-    
+    //читаем из хранилища
     appData = JSON.parse( localStorage.getItem('model') );
   } else {
 
@@ -46,7 +47,6 @@ const readFromLocalStorage = () => {
     appData = [];
   }
 };
-
 
 
 //функция прорисовки таблицы через innerHTML
@@ -113,40 +113,43 @@ const renderTableHTML = () => {
 };
 
 
-
-
-
-const getTableRow = ()  => {
-
+const getTableRow = (car, isTH)  => {
+  
+  let td;
+  if (isTH) {
+    td = document.createElement('th');
+  } else {
+    td = document.createElement('td');
+  }
   let row = document.createElement('tr');
-  let td = document.createElement('td');
 
-  let car = appData[1];
-  let tds = [];
   let j = 0;
   for (let key in car) {
     j++;
     let item = car[key];
-    console.log(key, item);
+    // console.log(key, item);
     let tdata = td.cloneNode();
-    switch (j)  {
-      case 0:
-        tdata.textContent = '';
-        break;
-      case 1:
-        tdata.textContent = car.brand;
-        break;
-      case 2:
-        tdata.textContent = car.model;
-        break;
-      case 3:
-        tdata.textContent = car.year;
-        break;
-      case 4:
-        tdata.textContent = car.mileage;
-        break;
-    }
-    tds.push(tdata);
+
+    tdata.textContent = item.trim();
+    // switch (j)  {
+    //   case 0:
+    //     tdata.textContent = '';
+    //     break;
+    //   case 1:
+    //     tdata.textContent = car.brand.trim() ? car.brand.trim() : '-';
+    //     break;
+    //   case 2:
+    //     tdata.textContent = car.model.trim() ? car.model.trim() : '-';
+    //     break;
+    //   case 3:
+    //     tdata.textContent = car.year.trim() ? car.year.trim() : '-';
+    //     break;
+    //   case 4:
+    //     tdata.textContent = car.mileage.trim() ? car.mileage.trim() : '-';
+    //     break;
+    //   default:
+    //     tdata.textContent = '---';
+    // }
     row.append(tdata);
   }
 
@@ -161,9 +164,6 @@ const renderTable = () => {
   if (tableContainer) {
     // console.log('tableContainer существует и добавим таблицу сюда');
     
-console.log('What we get : ', getTableRow());
-
-
     //элементы оригиналы
     const tr = document.createElement('tr');
     const th = document.createElement('th');
@@ -172,16 +172,46 @@ console.log('What we get : ', getTableRow());
     const tHead = document.createElement('thead');
     const tBody = document.createElement('tbody');
     const tFoot = document.createElement('tfoot');
-
+    
     const table = document.createElement('table');
+    table.classList.add('table', 'table-sm', 'table-dark', 'table-striped', 'table-hover');
 
-    tBody.append(getTableRow());
+    // const trows = [];
+    // const ths = [];
+    // const tds = [];
+
+    // THEAD
+    let row = getTableRow({ 
+      brand:'Марка',
+      model:'Модель',
+      year:'Год выпуска',
+      mileage:'И пробег'
+    }, true);
+    
+    console.log('row: ', row);
+    tHead.append(row);
+
+
+    // TBODY
+    //для каждого элемента массива (для каждого обеъкта) выполняем функцию
+    appData.forEach( (carItem) => {
+      console.log('carItem', carItem);
+      tBody.append(getTableRow(carItem));
+    });
+
+
+    const caption = document.createElement('caption');
+    caption.classList.add('caption-top');
+    caption.textContent = 'Список автомобилей';
+    table.append(caption);
+
+    table.append(tHead);
     table.append(tBody);
-    tableContainer.append(table);
 
-    const trows = [];
-    const ths = [];
-    const tds = [];
+    tFoot.append(getTableRow({ b:'Marka',m:'Model',y:'Year',a:'Miles'}, true));
+    table.append(tFoot);
+    
+    tableContainer.append(table);
 
 
     //TABLE HEAD thead>tr>th
@@ -248,26 +278,10 @@ console.log('What we get : ', getTableRow());
     //   tBody.append(trows[carIndex]);
     // }
 
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
   } else {
     console.log('tableContainer null не найден');
   } 
 };
-
-
 
 
 
@@ -314,6 +328,11 @@ btnAddCar.addEventListener('click', (e) => {
   renderTable();
 });
 
+
+btnFilter.addEventListener('click', (event) => {
+  console.log('Кнопка фильтарации, давайте отфильтруем');
+  alert('Давайте отфильтруем,\nфункция фильтрации на стадии разработки');
+});
 
 btnRender.addEventListener('click', (event) => {
   console.log('Построим таблицу здесь, lets render table');

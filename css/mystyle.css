@@ -3,5 +3,8 @@
 }
 
 .wrap {
-    /* background-color: rgb(216, 216, 216); */
+    background-color: rgb(216, 216, 216);
+}
+.table-container {
+    margin: 5px 15px;
 }
