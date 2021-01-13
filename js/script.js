@@ -301,20 +301,17 @@ btnAddCar.addEventListener('click', (e) => {
   const inputAddBrand = document.getElementById('input-add-brand');
   const inputAddModel = document.getElementById('input-add-model');
   const inputAddYear = document.getElementById('input-add-year');
-  console.log('inputAddYear: ', inputAddYear);
   const inputAddMileage = document.getElementById('input-add-mileage') ;
 
-  const brand = inputAddBrand.value;
-  const model = inputAddModel.value;
-  const year = inputAddYear.value;
-  console.log('year: ', year);
-  const mileage = inputAddMileage.value;
-  console.log('mileage: ', mileage);
+  const brand = inputAddBrand.value.trim();
+  const model = inputAddModel.value.trim();
+  const year = inputAddYear.value.trim();
+  const mileage = inputAddMileage.value.trim();
 
 
+  //проверяем хотя бы какоето поле заполнено
   if ( brand || model || year ) {
-    
-    //проверяем хотя бы какоето поле заполнено
+    //добавляем данные из формы в массив appData    
     addModelToAppData( brand, model, year, mileage );
 
   } else {
@@ -332,7 +329,8 @@ btnAddCar.addEventListener('click', (e) => {
 btnFilter.addEventListener('click', (event) => {
   console.log('Кнопка фильтарации, давайте отфильтруем');
   alert('Давайте отфильтруем,\nфункция фильтрации на стадии разработки');
-});
+});//btnFilter.addEventListener
+
 
 btnRender.addEventListener('click', (event) => {
   console.log('Построим таблицу здесь, lets render table');
